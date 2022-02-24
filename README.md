@@ -11,7 +11,7 @@ Items:
 - [ ] IDE
 - [ ] Installer so .orbit files open in IDE
 
-
+***
 
 Tables are 3 by 3 grids of operators. Execution starts in the top left corner and goes clockwise.
 So the order would be:
