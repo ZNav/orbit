@@ -82,10 +82,10 @@ These simply print a user input
 - =	if sub value equals x run next operation else skip next
 - p	print sub value
 - i	start sub table with x = current x
-- +	add sub value to x
-- -	subtract sub value from x
+- \+	add sub value to x
+- \-	subtract sub value from x
 - /	divide x by sub value
-- *	multiply x by sub value
+- \*	multiply x by sub value
 
 #### In Place Operators
 
