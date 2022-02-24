@@ -38,14 +38,15 @@ Sub tables can contain drop operators. The program starts with a single operator
 be a letter drop operator.
 
 example:
+
 	p
 	
 	|
 	v
   
-  I,\,\
-  \,\,\
-  \,\,\
+ 	 I,\,\
+  	\,\,\
+  	\,\,\
   
 or 
 
@@ -54,9 +55,9 @@ or
 	|
 	v
   
-  P,\,\
-  \,\,\
-  \,\,\
+ 	 P,\,\
+ 	 \,\,\
+ 	 \,\,\
 
 These simply print a user input
 
