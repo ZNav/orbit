@@ -1,8 +1,6 @@
 # orbit - binary based language with fractal-like structure
 ## by Zander & Carson
 
-language, interperter and ide all soon to come.
-
 Items:
 - [ ] Documentation 
 - [ ] Base Idea
