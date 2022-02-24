@@ -22,19 +22,23 @@ The following are the variables used in the background of this program:
 
 	x = previous value
 	t = type x is to be read as
+	q = saved data queue
 
 A table has the following initial values:
 
 	x = null
 	t = binary
+	q = empty queue
 
 Possible values of t are:
-string
-int
-binary
 
-x can be set by certain drop operators.
-If types do not match they are both treated as binary.
+1. string
+2. int
+3. binary
+
+#### Notes on Types and Variables
+1. x can be set by certain drop operators.
+2. If types do not match they are both treated as binary.
 
 Drop operators run a 3 by 3 sub table and perform some operation on the value of x at the end.
 Sub tables can contain drop operators. The program starts with a single operator which MUST
@@ -42,10 +46,10 @@ be a letter drop operator.
 
 example:
 
-	p
+	  p
 	
-	|
-	v
+	  |
+	  v
   
  	I,\,\
   	\,\,\
@@ -53,10 +57,10 @@ example:
   
 or 
 
-	i
+	  i
 	
-	|
-	v
+	  |
+	  v
   
  	 P,\,\
  	 \,\,\
@@ -69,9 +73,9 @@ These simply print a user input
 2. in place operators manipulate or display x without using a sub table
 3. t is linked to an instance of x (if x is kept so is t)
 4. lowercase or symbol operators are drop operators
-	a. exceptions.
-		1. \ is null
-	b. uppercase or number operators are in place operators
+5. uppercase or number operators are in place operators
+6. the only exception is '\' is null (an in place operator)
+7. all normal logical operators are accepted and work identically to '='. they are skipped in the listing for brevity.
 
 ## Operators 
 
