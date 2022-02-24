@@ -13,17 +13,20 @@ Items:
 
 Tables are 3 by 3 grids of operators. Execution starts in the top left corner and goes clockwise.
 So the order would be:
-1,2,3
-8,9,4
-7,6,5
+
+	1,2,3
+	8,9,4
+	7,6,5
 
 The following are the variables used in the background of this program:
-x = previous value
-t = type x is to be read as
+
+	x = previous value
+	t = type x is to be read as
 
 A table has the following initial values:
-x = null
-t = binary
+
+	x = null
+	t = binary
 
 Possible values of t are:
 string
