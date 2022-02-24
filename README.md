@@ -77,26 +77,26 @@ These simply print a user input
 
 #### Drop Operators
 
-	x	set x to sub value
-	k	set x to sub value. x of sub table = x
-	=	if sub value equals x run next operation else skip next
-	p	print sub value
-	i	start sub table with x = current x
-	+	add sub value to x
-	-	subtract sub value from x
-	/	divide x by sub value
-	*	multiply x by sub value
+- x	set x to sub value
+- k	set x to sub value. x of sub table = x
+- =	if sub value equals x run next operation else skip next
+- p	print sub value
+- i	start sub table with x = current x
+- +	add sub value to x
+- -	subtract sub value from x
+- /	divide x by sub value
+- *	multiply x by sub value
 
 #### In Place Operators
 
-	R	restart from beginning of table without changing x
-	X	clear x
-	D	do not return value
-	P	print x
-	I	set x to input
-	0	add 0 to end of binary of x
-	1	add 1 to end of binary of x
-	\ 	null
-	S	t = string
-	Y	t = int
-	B	t = binary
+- R	restart from beginning of table without changing x
+- X	clear x
+- D	do not return value
+- P	print x
+- I	set x to input
+- 0	add 0 to end of binary of x
+- 1	add 1 to end of binary of x
+- \ 	null
+- S	t = string
+- Y	t = int
+- B	t = binary
