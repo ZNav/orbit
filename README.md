@@ -89,14 +89,14 @@ These simply print a user input
 
 #### In Place Operators
 
-> R	restart from beginning of table without changing x
-> X	clear x
-> D	do not return value
-> P	print x
-> I	set x to input
-> 0	add 0 to end of binary of x
-> 1	add 1 to end of binary of x
-> \ 	null
-> S	t = string
-> Y	t = int
-> B	t = binary
+> -R	restart from beginning of table without changing x
+> -X	clear x
+> -D	do not return value
+> -P	print x
+> -I	set x to input
+> -0	add 0 to end of binary of x
+> -1	add 1 to end of binary of x
+> -\ 	null
+> -S	t = string
+> -Y	t = int
+> -B	t = binary
