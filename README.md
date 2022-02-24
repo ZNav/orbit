@@ -1,3 +1,16 @@
+# orbit - binary based language with fractal-like structure
+# by Zander & Carson
+
+language, interperter and ide all soon to come.
+
+Items:
+- [ ] Documentation 
+- [ ] Base Idea
+- [ ] Beta Build
+- [ ] Interperter
+- [ ] IDE
+- [ ] Installer so .orbit files open in IDE
+
 Tables are 3 by 3 grids of operators. Execution starts in the top left corner and goes clockwise.
 So the order would be:
 1,2,3
@@ -12,13 +25,19 @@ A table has the following initial values:
 x = null
 t = binary
 
+Possible values of t are:
+string
+int
+binary
+
 x can be set by certain drop operators.
 If types do not match they are both treated as binary.
 
-the program MUST start with a single letter drop operator and can branch from there.
+Drop operators run a 3 by 3 sub table and perform some operation on the value of x at the end.
+Sub tables can contain drop operators. The program starts with a single operator which MUST
+be a letter drop operator.
 
 example:
-
 	p
 	
 	|
@@ -66,6 +85,7 @@ i	start sub table with x = current x
 |||In Place Operators|||
 R	restart from beginning of table without changing x
 X	clear x
+D	do not return value
 P	print x
 I	set x to input
 0	add 0 to end of binary of x
