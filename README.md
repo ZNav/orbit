@@ -1,5 +1,5 @@
 # orbit - binary based language with fractal-like structure
-# by Zander & Carson
+## by Zander & Carson
 
 language, interperter and ide all soon to come.
 
@@ -70,9 +70,9 @@ These simply print a user input
 		1. \ is null
 	b. uppercase or number operators are in place operators
 
--- Operators --
+## Operators 
 
-|||Drop Operators|||
+#### Drop Operators
 
 	x	set x to sub value
 	k	set x to sub value. x of sub table = x
@@ -84,7 +84,7 @@ These simply print a user input
 	/	divide x by sub value
 	*	multiply x by sub value
 
-|||In Place Operators|||
+#### In Place Operators
 
 	R	restart from beginning of table without changing x
 	X	clear x
