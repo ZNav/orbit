@@ -61,7 +61,7 @@ or
 
 These simply print a user input
 
--- Notes on Operators --
+#### Notes on Operators
 1. drop operators have a sub table that they run and perform an operation on the sub tables x value
 2. in place operators manipulate or display x without using a sub table
 3. t is linked to an instance of x (if x is kept so is t)
