@@ -2,8 +2,8 @@
 ## by Zander & Carson
 
 Items:
-- [ ] Documentation 
-- [ ] Base Idea
+- [X] Documentation 
+- [X] Base Idea
 - [ ] Beta Build
 - [ ] Interperter
 - [ ] IDE
