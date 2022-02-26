@@ -96,8 +96,8 @@ These simply print a user input
 
 #### In Place Operators
 
-	L	loop from beginning of table without changing x
-	K	use x as the starting value of next drop op
+	L	loop from beginning of table without changing x (loop)
+	K	use x as the starting value of next drop op (keep)
 	X	clear only x
 	C	clear all variables
 	R	return null
