@@ -104,3 +104,6 @@ These simply print a user input
 	S	t = string
 	Y	t = int
 	B	t = binary
+	S	clone x onto q
+	A	x = q.pop()
+	L	x = count of q
