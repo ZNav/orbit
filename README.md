@@ -38,7 +38,7 @@ Possible values of t are:
 
 #### Notes on Types and Variables
 1. x can be set by certain drop operators.
-2. If types do not match they are both treated as binary.
+2. If types do not match they are both treated as int.
 
 Drop operators run a 3 by 3 sub table and perform some operation on the value of x at the end.
 Sub tables can contain drop operators. The program starts with a single operator which MUST
@@ -83,27 +83,34 @@ These simply print a user input
 
 	x	set x to sub value
 	k	set x to sub value. x of sub table = x
-	=	if sub value equals x run next operation else skip next
 	p	print sub value
 	i	start sub table with x = current x
+	=	if sub value equals x run next operation else skip next
 	+	add sub value to x
 	-	subtract sub value from x
 	/	divide x by sub value
 	*	multiply x by sub value
+	|	bitwise or with sub value
+	&	bitwise and with sub value
+	^	bitwise xor with sub value
 
 #### In Place Operators
 
-	R	restart from beginning of table without changing x
-	X	clear x
-	D	do not return value
+	L	loop from beginning of table without changing x
+	K	use x as the starting value of next drop op
+	X	clear only x
+	C	clear all variables
+	R	return null
 	P	print x
 	I	set x to input
 	0	add 0 to end of binary of x
 	1	add 1 to end of binary of x
 	\ 	null
 	S	t = string
-	Y	t = int
+	N	t = int
 	B	t = binary
-	S	clone x onto q
-	A	x = q.pop()
-	L	x = count of q
+	qA	clone x onto end of q (append)
+	qD	x = first item of q (remove first item)(pop)
+	qG	x = first item of q (get)
+	qP	x = last item of q (peek)
+	qL	x = count of q (length)
