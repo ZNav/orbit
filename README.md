@@ -74,7 +74,7 @@ These simply print a user input
 3. t is linked to an instance of x (if x is kept so is t)
 4. lowercase or symbol operators are drop operators
 5. uppercase or number operators are in place operators
-6. the only exception is '\' is null (an in place operator)
+6. the only exception is '\\' is null (an in place operator)
 7. all normal logical operators are accepted and work identically to '='. they are skipped in the listing for brevity.
 
 ## Operators 
