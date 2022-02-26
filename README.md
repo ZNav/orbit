@@ -110,7 +110,7 @@ These simply print a user input
 	N	t = int
 	B	t = binary
 	qA	clone x onto end of q (append)
-	qD	x = first item of q (remove first item)(pop)
+	qD	x = first item of q (remove first item)(dequeue)
 	qG	x = first item of q (get)
 	qP	x = last item of q (peek)
 	qL	x = count of q (length)
