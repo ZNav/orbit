@@ -82,7 +82,7 @@ These simply print a user input
 #### Drop Operators
 
 	x	set x to sub value
-	k	set x to sub value. x of sub table = x
+	c	set x to sub value. x of sub table = x
 	p	print sub value
 	i	start sub table with x = current x
 	=	if sub value equals x run next operation else skip next
