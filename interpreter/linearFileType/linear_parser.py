@@ -1,12 +1,10 @@
-with open('input.orbit') as f:
+with open('input_linear.orbit') as f:
     tables = f.read().split(',')
 
 dropOperators = ['x', 'k', '=', 'p', 'i', '+', '-', '/', '*']
 passDown = False
 
-# TODO make K an in-place op that passes x to next drop op
-# passDown should be set to True if K is called
-# should k be kept?
+# TODO This needs redone with the new table and operator classes
 
 def executeTable(tables, returnData={}, first=False):
     global passDown, dropOperators
