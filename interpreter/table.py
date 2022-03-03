@@ -1,23 +1,29 @@
-tableTitleSeperator = '.'
+table_title_seperator = '.'
 
-def tableLookupByTitle(tables, title):
+def table_lookup_by_title(tables, title):
     # TODO Error handling
     return [i.title for i in tables].index(title)
 
-# TODO Update to work with classes (takes array of strings now)
-def formatTable(table):
-    if len(table) == 9:
-        ret = []
-        for i in range(0, 9, 3):
-            ret.append(','.join(table[i:i+3]))
-        return '\n'.join(ret)
-    else:
-        return ','.join(table)
-
 class Table:
-    title = None
-    operators = []
-
     def __init__(self, title, operators):
         self.title = title
         self.operators = operators
+    
+    def get_formatted(self):
+        operators = [i.string for i in self.operators]
+
+        if len(operators) == 9:
+            formatted_table = [[None, None, None] for i in range(3)]
+            x = iter(range(9)) # TODO Redo?
+            formatted_table[0][0] = operators[next(x)]
+            formatted_table[0][1] = operators[next(x)]
+            formatted_table[0][2] = operators[next(x)]
+            formatted_table[1][2] = operators[next(x)]
+            formatted_table[2][2] = operators[next(x)]
+            formatted_table[2][1] = operators[next(x)]
+            formatted_table[2][0] = operators[next(x)]
+            formatted_table[1][0] = operators[next(x)]
+            formatted_table[1][1] = operators[next(x)]
+            return '\n'.join([' '.join(i) for i in formatted_table])
+        else:
+            return ' '.join(operators)

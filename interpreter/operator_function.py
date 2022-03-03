@@ -1,17 +1,17 @@
-operatorFunctions = {'P': print} # TODO
-dropOps = ['x', 'c', 'k', 'p'] # TODO
+__all__ = ['is_drop_op', 'Operator']
 
-def isDropOp(op):
-    return op.string in dropOps # TODO
+operator_functions = {'P': print} # TODO
+drop_ops = ['x', 'c', 'k', 'p'] # TODO
+
+def is_drop_op(op):
+    return op.string in drop_ops # TODO
 
 class Operator:
-    table = None
-    func = None
-    string = ''
-    
     def __init__(self, op):
-        # self.func = operatorFunctions[op]
+        self.func = None
+        # self.func = operator_functions[op]
         self.string = op
+        self.table = None
 
-    def run(self, data, tableOutput=None):
-        self.func(data, tableOutput)
+    def run(self, data, table_output=None):
+        self.func(data, table_output)
