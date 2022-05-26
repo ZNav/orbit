@@ -38,7 +38,8 @@ Possible values of t are:
 
 #### Notes on Types and Variables
 1. x can be set by certain drop operators.
-2. If types do not match they are both treated as int.
+2. 
+types do not match they are both treated as int.
 
 Drop operators run a 3 by 3 sub table and perform some operation on the value of x at the end.
 Sub tables can contain drop operators. The program starts with a single operator which MUST
@@ -54,22 +55,11 @@ example:
  	I,\,\
   	\,\,\
   	\,\,\
-  
-or 
 
-	   i
-	
-	   |
-	   v
-  
- 	 P,\,\
- 	 \,\,\
- 	 \,\,\
-
-These simply print a user input
+Prints a user input
 
 #### Notes on Operators
-1. drop operators have a sub table that they run and perform an operation on the sub tables x value
+1. drop operators have a sub table that they run and perform an operation on the sub table's x value
 2. in place operators manipulate or display x without using a sub table
 3. t is linked to an instance of x (if x is kept so is t)
 4. lowercase or symbol operators are drop operators
@@ -84,7 +74,8 @@ These simply print a user input
 	x	set x to sub value
 	c	set x to sub value. x of sub table = x
 	p	print sub value
-	i	start sub table with x = current x
+	s	save x to sub value address
+	g	set x to data from address of sub value
 	=	if sub value equals x run next operation else skip next
 	+	add sub value to x
 	-	subtract sub value from x
@@ -97,21 +88,15 @@ These simply print a user input
 #### In Place Operators
 
 	L	loop from beginning of table without changing x (loop)
-	S	skip next operation
+	S	skip next operation (skip)
 	K	use x as the starting value of next drop op (keep)
-	X	clear only x
-	C	clear all variables
-	R	return null
-	P	print x
-	I	set x to input
+	C	set x to null (clear)
+	R	skip rest of table (return)
+	P	print x (print)
+	I	set x to input (input)
 	0	add 0 to end of binary of x
 	1	add 1 to end of binary of x
 	\ 	null
 	S	t = string
 	N	t = int
 	B	t = binary
-	qS	clone x onto end of q (append)
-	qD	x = first item of q (remove first item)(dequeue)
-	qG	x = first item of q (get)
-	qP	x = last item of q (peek)
-	qL	x = count of q (length)
