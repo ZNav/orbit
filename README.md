@@ -97,6 +97,6 @@ Prints a user input
 	0	add 0 to end of binary of x
 	1	add 1 to end of binary of x
 	\ 	null
-	S	t = string
+	W	t = string
 	N	t = int
 	B	t = binary
