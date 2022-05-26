@@ -72,10 +72,10 @@ Prints a user input
 #### Drop Operators
 
 	x	set x to sub value
-	c	set x to sub value. x of sub table = x
-	p	print sub value
-	s	save x to sub value address
-	g	set x to data from address of sub value
+	c	set x to sub value. x of sub table = x (continue)
+	p	print sub value (print)
+	s	save x to sub value address (save)
+	g	set x to data from address of sub value (get)
 	=	if sub value equals x run next operation else skip next
 	+	add sub value to x
 	-	subtract sub value from x
