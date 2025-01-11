@@ -4,9 +4,9 @@
 Items:
 - [X] Documentation 
 - [X] Base Idea
-- [ ] Beta Build
-- [ ] Interperter
-- [ ] IDE
+- [X] Beta Build
+- [X] Interperter
+- [X] IDE
 - [ ] Installer so .orbit files open in IDE
 
 ***
