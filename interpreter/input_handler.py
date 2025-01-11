@@ -1,7 +1,5 @@
 from os.path import exists
 
-__all__ = ['handle_input']
-
 default_input_file = 'input.orbit'
 
 def open_file(file_name):
@@ -16,5 +14,5 @@ def handle_input(argv, file_name=None):
     elif exists(default_input_file):
         return open_file(default_input_file)
     else:
-        return
-        # TODO Invalid input error
+        return ''
+
