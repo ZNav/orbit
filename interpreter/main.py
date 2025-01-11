@@ -1,62 +1,76 @@
+import sys
+import re
+
 class Table:
-    def __init__(self, name, operators):
+    def __init__(self, name, rows):
         self.name = name
-        self.operators = operators
+        self.rows = rows
 
-    def __str__(self):
-        """
-        Format the table into a human-readable format.
-        If it's a 3x3 table, it will be displayed in a grid.
-        """
-        operators = [i.strip() for i in self.operators]
-        if len(operators) == 9:  # If it's a 3x3 grid
-            formatted_table = [[None, None, None] for _ in range(3)]
-            x = iter(range(9))
-            formatted_table[0][0] = operators[next(x)]
-            formatted_table[0][1] = operators[next(x)]
-            formatted_table[0][2] = operators[next(x)]
-            formatted_table[1][2] = operators[next(x)]
-            formatted_table[2][2] = operators[next(x)]
-            formatted_table[2][1] = operators[next(x)]
-            formatted_table[2][0] = operators[next(x)]
-            formatted_table[1][0] = operators[next(x)]
-            formatted_table[1][1] = operators[next(x)]
+    def __repr__(self):
+        return f"Table: {self.name}\n{self.rows}"
 
-            # Format the rows in a human-readable way
-            return f"Table: {self.name}\n" + '\n'.join(
-                [' '.join(str(cell) if cell is not None else ' ' for cell in row) for row in formatted_table]
-            )
+def parse_linear_table(input_text, tables, table_name):
+    current_table = Table(table_name, [])
+    for line in input_text.splitlines():
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue  # Skip empty lines and comments
+        if line.endswith(':'):
+            # Found a new table
+            table_name = line[:-1]
+            tables.append(current_table)
+            current_table = Table(table_name, [])
         else:
-            return f"Table: {self.name}\n" + ' '.join(operators)
+            current_table.rows.append(line)
+    tables.append(current_table)
 
-# Function to parse linear input text into a list of tables
 def linear_parser(input_text):
-    print(f"Parsing linear input: {input_text}")
     tables = []
-    # Simulating parsing logic, replace with actual parsing logic
-    tables.append(Table("root", ["p"]))
-    tables.append(Table("root.0", ["x 72", "\\", "\\", "k", "\\", "\\", "\\"]))
-    tables.append(Table("root.0.0", ["1 1 1", "\\", "1", "\\", "P"]))
-    tables.append(Table("root.0.1", ["1 1 1", "\\", "1", "P", "1", "1"]))
-    tables.append(Table("root.1", ["x 101", "\\", "\\", "k", "\\", "\\", "\\"]))
-    tables.append(Table("root.1.0", ["1 1 1", "\\", "1", "\\", "P"]))
-    tables.append(Table("root.1.1", ["1 1 1", "\\", "1", "P", "1", "1"]))
-    tables.append(Table("root.2", ["x 108", "\\", "\\", "k", "\\", "\\", "\\"]))
-    tables.append(Table("root.2.0", ["1 1 1", "\\", "1", "\\", "P"]))
-    tables.append(Table("root.2.1", ["1 1 1", "\\", "1", "P", "1", "1"]))
-    
+    initial_table_name = "root"
+    parse_linear_table(input_text, tables, initial_table_name)
     return tables
 
-# Function to print the list of tables in a readable format
-def print_tables(tables):
-    # Output all tables in a human-readable format
-    print("\nTables after parsing:")
+def binary_to_text(tables):
+    binary_strings = []
     for table in tables:
-        print(table)
+        for row in table.rows:
+            # Extract the binary part (e.g., "x 72" => binary of 72)
+            match = re.match(r'x (\d+)', row)
+            if match:
+                ascii_value = int(match.group(1))
+                binary_strings.append(chr(ascii_value))
+    return ''.join(binary_strings)
 
-# Main program flow
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <input_file> [-a]")
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+    show_all_info = '-a' in sys.argv
+
+    try:
+        with open(input_file, 'r') as f:
+            input_text = f.read()
+    except FileNotFoundError:
+        print(f"Error: File '{input_file}' not found.")
+        sys.exit(1)
+
+    if show_all_info:
+        print("Parsing linear input:")
+        print(input_text)
+    
+    tables = linear_parser(input_text)
+    
+    if show_all_info:
+        print("\nTables after parsing:")
+        for table in tables:
+            print(table)
+
+    result = binary_to_text(tables)
+    print("\nBinary to Text Output:")
+    print(result)
+
 if __name__ == "__main__":
-    input_text = "root:\np"  # Example input, replace with actual input
-    tables = linear_parser(input_text)  # Parsing the input into tables
-    print_tables(tables)  # Printing the tables in a human-readable format
+    main()
 
