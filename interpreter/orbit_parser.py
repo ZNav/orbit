@@ -1,10 +1,10 @@
 from table import table_lookup_by_title, table_title_seperator, Table
 from operator_function import Operator, is_drop_op
 
-verbose = False
+verbose = True  # Turn on verbose debugging
 __all__ = ['linear_parser', 'formatted_parser', 'verbose']
 
-def string_table_to_array(table): # TODO redo this
+def string_table_to_array(table):
     ret = []
     split_table = [i.split(' ') for i in table.split('\n')]
     if len(split_table) == 1:
@@ -37,60 +37,67 @@ def parse_linear_table(input_text, tables, table_name, first=False):
     offset = 0
     table = []
     
+    print(f"Parsing table: {table_name}, first={first}")
+    
     for i in range(0, 9 if not first else 1):
-        operator = input_text[i+offset]
+        operator = input_text[i + offset]
         table.append(operator)
         if is_drop_op(operator):
-            offset += parse_linear_table(input_text[i+offset+1:], tables, table_name+'.'+str(child_id))
+            print(f"Found drop operator: {operator}, processing child table")
+            offset += parse_linear_table(input_text[i + offset + 1:], tables, f"{table_name}.{child_id}")
             child_id += 1
     
     tables.append(create_table_from_array(table_name, table))
-    return i+offset
+    print(f"Created table: {table_name} with operators: {table}")
+    
+    return i + offset
 
 def linear_parser(input_text):
     tables = []
     initial_table_name = 'root'
 
+    print(f"Parsing linear input: {input_text}")
+    
     parse_linear_table(input_text, tables, initial_table_name, True)
     
+    print(f"Tables after parsing: {tables}")
+    
     root = table_lookup_by_title(tables, initial_table_name)
+    print(f"Root table: {root}")
+    
     link_child_tables(root, tables)
 
     return [root]
 
-
 def formatted_parser(input_text):
     roots = []
-    remaining_tables = input_text
+    remaining_tables = input_text.strip()  # Ensure no leading/trailing whitespace
     tables = []
 
-    while remaining_tables.find(':') < 0:
-        header_end = remaining_tables.find(':')
-        header_begin = remaining_tables[:header_end].rfind('\n')
-        header_begin = 0 if header_begin < 0 else header_begin+1
+    print(f"Parsing formatted input: {input_text}")
+    
+    # Split input into table blocks based on empty lines or sections
+    sections = remaining_tables.split('\n\n')
+    for section in sections:
+        if section.strip():  # Ignore empty sections
+            # Split each section into header and body
+            header_end = section.find(':')
+            header = section[:header_end].strip()
+            body = section[header_end + 1:].strip()
 
-        # TODO Add error checking here
-        body_begin = header_end+2
-        body_end = remaining_tables[body_begin:].find('\n\n')
-        body_end = None if body_end < 0 else body_end + body_begin
-
-        if verbose:
-            print('header', header_begin, header_end, 'body', body_begin, body_end)
-            print('header -\n'+remaining_tables[header_begin:header_end])
-            print('body -\n'+remaining_tables[body_begin:body_end])
-
-        table_title = remaining_tables[header_begin:header_end]
-        table_array = string_table_to_array(remaining_tables[body_begin:body_end])
-        tables.append(create_table_from_array(table_title, table_array))
-        remaining_tables = remaining_tables[body_begin:]
-
+            print(f"Found header: {header}, body: {body}")
+            
+            table_array = string_table_to_array(body)
+            tables.append(create_table_from_array(header, table_array))
+    
+    print(f"Tables after parsing: {tables}")
+    
     for i, t in enumerate(tables):
         if len(t.title.split(table_title_seperator)) == 1:
-            # TODO do performance testing on whether they should be popped or just read
-            # also this may error when there are multiple roots (untested)
             roots.append(tables.pop(i))
 
     for r in roots:
         link_child_tables(r, tables)
     
     return roots
+
