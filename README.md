@@ -1,102 +1,121 @@
-# orbit - binary based language with fractal-like structure
-## by Zander & Carson
+# orbit
 
-Items:
-- [X] Documentation 
-- [X] Base Idea
-- [X] Beta Build
-- [X] Interperter
-- [X] IDE
-- [ ] Installer so .orbit files open in IDE
+A binary-based esoteric programming language where every program is a fractal
+of 3×3 tables. Execution walks a clockwise spiral; operators can drop into
+sub-tables that recurse to arbitrary depth.
 
-***
+By Zander & Carson.
 
-Tables are 3 by 3 grids of operators. Execution starts in the top left corner and goes clockwise.
-So the order would be:
+```
+   ┌─────┬─────┬─────┐
+   │  1  │  2  │  3  │      execution order:
+   ├─────┼─────┼─────┤      top-left → clockwise → center
+   │  8  │  9  │  4  │      (cell 9 runs last)
+   ├─────┼─────┼─────┤
+   │  7  │  6  │  5  │
+   └─────┴─────┴─────┘
+```
 
-	1,2,3
-	8,9,4
-	7,6,5
+## Core model
 
-The following are the variables used in the background of this program:
+Each table maintains three pieces of state:
 
-	x = previous value
-	t = type x is to be read as
-	q = saved data queue
+| Var | Meaning | Initial value |
+|---|---|---|
+| `x` | the previous value | `null` |
+| `t` | type `x` is interpreted as | `binary` |
+| `q` | saved-data queue | empty |
 
-A table has the following initial values:
+`t` can be `string`, `int`, or `binary` — set with the `W`, `N`, `B` operators.
+`t` is bound to the instance of `x`: as long as `x` lives, so does `t`.
 
-	x = null
-	t = binary
-	q = empty queue
+When the walker hits a **drop operator**, it descends into a 3×3 sub-table,
+runs that sub-table, and the resulting `x` from the sub-table feeds the parent
+operator. Sub-tables can hold drop operators of their own — that's where the
+fractal property comes from.
 
-Possible values of t are:
+A program must start with a **letter drop operator** at the outermost top-left.
 
-1. string
-2. int
-3. binary
+## Operators
 
-#### Notes on Types and Variables
-1. x can be set by certain drop operators.
-2. 
-types do not match they are both treated as int.
+### Drop operators (lowercase / symbol — they recurse into a sub-table)
 
-Drop operators run a 3 by 3 sub table and perform some operation on the value of x at the end.
-Sub tables can contain drop operators. The program starts with a single operator which MUST
-be a letter drop operator.
+| Op | Effect |
+|---|---|
+| `x` | set `x` to sub-table value |
+| `c` | continue: set sub's `x` to current `x`, then run sub, then take its value |
+| `p` | print sub-table value |
+| `s` | save `x` to address held in sub-table value |
+| `g` | get `x` from address held in sub-table value |
+| `=` | if sub-table value == `x`, run next op; else skip it |
+| `+ - * /` | arithmetic: combine `x` with sub-table value |
+| `\| & ^` | bitwise or / and / xor with sub-table value |
 
-example:
+### In-place operators (uppercase / digit — operate on `x` directly)
 
-	  p
-	
-	  |
-	  v
-  
- 	I,\,\
-  	\,\,\
-  	\,\,\
+| Op | Effect |
+|---|---|
+| `L` | loop back to start of this table without changing `x` |
+| `S` | skip next operation |
+| `K` | keep: use current `x` as starting value for the next drop op |
+| `C` | clear: set `x` to null |
+| `R` | return: skip the rest of this table |
+| `P` | print `x` |
+| `I` | input: read user input into `x` |
+| `0` `1` | append a binary 0 / 1 to the end of `x`'s binary representation |
+| `W` `N` `B` | set type `t` to string / int / binary |
+| `\` | null (no-op) |
 
-Prints a user input
+Standard logical operators (`<`, `>`, `==`, etc.) work identically to `=` and
+are accepted as aliases.
 
-#### Notes on Operators
-1. drop operators have a sub table that they run and perform an operation on the sub table's x value
-2. in place operators manipulate or display x without using a sub table
-3. t is linked to an instance of x (if x is kept so is t)
-4. lowercase or symbol operators are drop operators
-5. uppercase or number operators are in place operators
-6. the only exception is '\\' is null (an in place operator)
-7. all normal logical operators are accepted and work identically to '='. they are skipped in the listing for brevity.
+## Example: print user input
 
-## Operators 
+```
+   p
+   |
+   v
 
-#### Drop Operators
+  I,\,\
+  \,\,\
+  \,\,\
+```
 
-	x	set x to sub value
-	c	set x to sub value. x of sub table = x (continue)
-	p	print sub value (print)
-	s	save x to sub value address (save)
-	g	set x to data from address of sub value (get)
-	=	if sub value equals x run next operation else skip next
-	+	add sub value to x
-	-	subtract sub value from x
-	/	divide x by sub value
-	*	multiply x by sub value
-	|	bitwise or with sub value
-	&	bitwise and with sub value
-	^	bitwise xor with sub value
+The outer cell `p` (print drop) drops into the sub-table. `I` reads input into
+`x`. The eight `\` cells are no-ops. When the sub-table completes, `p` prints
+`x`.
 
-#### In Place Operators
+## Run
 
-	L	loop from beginning of table without changing x (loop)
-	S	skip next operation (skip)
-	K	use x as the starting value of next drop op (keep)
-	C	set x to null (clear)
-	R	skip rest of table (return)
-	P	print x (print)
-	I	set x to input (input)
-	0	add 0 to end of binary of x
-	1	add 1 to end of binary of x
-	\ 	null
-	W	t = string
-	N	t = int
-	B	t = binary
+```bash
+cd interpreter
+python main.py input.orbit         # run a program
+python ide.py                      # launch the table-aware IDE
+```
+
+## Repository layout
+
+```
+interpreter/
+  main.py              # entry point
+  orbit.py             # core execution engine
+  orbit_parser.py      # table parser
+  orbit_operator.py    # operator definitions
+  operator_function.py # operator implementations
+  input_handler.py     # I/O
+  ide.py               # tkinter IDE
+  input.orbit          # sample program (input demo)
+```
+
+## Status
+
+- [x] Language design
+- [x] Documentation
+- [x] Interpreter
+- [x] IDE (tkinter, table-aware)
+- [x] Beta build
+- [ ] OS installer so `.orbit` files open in the IDE on double-click
+
+## License
+
+See [`license.txt`](license.txt).
